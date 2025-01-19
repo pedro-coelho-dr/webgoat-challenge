@@ -146,7 +146,6 @@ SQL Injection ocorre quando a aplicação não valida adequadamente as entradas 
 - **Uso de Query Parameters:** Implementar prepared statements ou ORMs que separam a lógica da consulta SQL dos dados fornecidos pelo usuário.
 - **Validação de Entradas:** Realizar validação rigorosa de todas as entradas recebidas, garantindo que apenas valores esperados sejam aceitos.
 - **Restringir Privilégios no Banco de Dados:** Limitar as permissões do banco de dados para que apenas operações necessárias sejam executadas.
-- **Monitoramento de Logs:** Implementar um sistema de monitoramento para detectar atividades suspeitas, como tentativas de SQL Injection.
 
 
 ## JWT Tokens
@@ -222,7 +221,7 @@ Stored Cross-Site Scripting (Stored XSS) ocorre quando a aplicação armazena de
 
 **Exploração**
 
-1. **Identificação da Funcionalidade Vulnerável  **
+1. **Identificação da Funcionalidade Vulnerável**
 
     - A função `webgoat.customjs.phoneHome` interage com o backend pelo endpoint `CrossSiteScripting/phone-home-xss`. Esta funcionalidade aceita dados que podem ser manipulados para explorar a vulnerabilidade.
 
