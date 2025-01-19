@@ -1,3 +1,4 @@
+{% include mermaid.html %}
 
 # Relatório WebGoat
 
@@ -302,3 +303,4 @@ flowchart TD
 ---
 
 Pedro Coelho @ 2025
+
