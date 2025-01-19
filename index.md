@@ -1,4 +1,13 @@
-{% include mermaid.html %}
+---
+title: Relatório WebGoat
+---
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.3.1/mermaid.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    mermaid.initialize({ startOnLoad: true });
+  });
+</script>
 
 # Relatório WebGoat
 
