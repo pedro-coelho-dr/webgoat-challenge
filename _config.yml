@@ -1,6 +1,16 @@
+title: Relatório WebGoat
+description: "An analysis of vulnerabilities in WebGoat"
+remote_theme: pages-themes/hacker@v0.2.0
+plugins:
+  - jekyll-remote-theme
+
 markdown: kramdown
 kramdown:
   input: GFM
-plugins:
-  - jekyll-remote-theme
-remote_theme: pages-themes/hacker@v0.2.0
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      scripts:
+        - https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.3.1/mermaid.min.js
