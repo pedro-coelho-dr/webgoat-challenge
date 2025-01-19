@@ -14,7 +14,7 @@
 
 
 ## Objetivo
-Este relatório tem como propósito identificar, analisar e explorar vulnerabilidades presentes na aplicação `WebGoat`. O foco está em demonstrar os impactos técnicos e operacionais dessas falhas, além de apresentar recomendações práticas para mitigação, alinhadas às melhores práticas de segurança.
+Este relatório tem como propósito identificar, analisar e explorar vulnerabilidades presentes na aplicação WebGoat. O foco está em demonstrar os impactos técnicos e operacionais dessas falhas, além de apresentar recomendações práticas para mitigação, alinhadas às melhores práticas de segurança.
 
 ## Escopo
 
@@ -88,7 +88,7 @@ SQL Injection ocorre quando a aplicação não valida adequadamente as entradas 
 
 **Exploração**
 
-1. Teste Inicial
+1. **Teste Inicial**
    - Um teste básico foi conduzido no campo `Name` utilizando o seguinte payload:
        ```sql
        ' OR '1'='1
@@ -97,7 +97,7 @@ SQL Injection ocorre quando a aplicação não valida adequadamente as entradas 
 
        ![img](img/sqli-1.png)
 
-2. Enumeração do Schema do Banco de Dados
+2. **Enumeração do Schema do Banco de Dados**
 
    - Para identificar tabelas adicionais no banco de dados, foi utilizado o seguinte payload:
 
@@ -108,7 +108,7 @@ SQL Injection ocorre quando a aplicação não valida adequadamente as entradas 
 
        ![img](img/sqli-2.png)
 
-3. Extração de Dados
+3. **Extração de Dados**
 
    - Após a identificação da tabela, os dados foram extraídos utilizando o seguinte payload:
      
@@ -143,8 +143,8 @@ SQL Injection ocorre quando a aplicação não valida adequadamente as entradas 
 
 **Mitigação**
 
-- **Uso de Query Parameters:** Implementar `prepared statements` ou `ORMs` que separam a lógica da consulta SQL dos dados fornecidos pelo usuário.
-- **Validação Rigorosa de Entradas:** Realizar validação rigorosa de todas as entradas recebidas, garan tindo que apenas valores esperados sejam aceitos.
+- **Uso de Query Parameters:** Implementar prepared statements ou ORMs que separam a lógica da consulta SQL dos dados fornecidos pelo usuário.
+- **Validação de Entradas:** Realizar validação rigorosa de todas as entradas recebidas, garantindo que apenas valores esperados sejam aceitos.
 - **Restringir Privilégios no Banco de Dados:** Limitar as permissões do banco de dados para que apenas operações necessárias sejam executadas.
 - **Monitoramento de Logs:** Implementar um sistema de monitoramento para detectar atividades suspeitas, como tentativas de SQL Injection.
 
@@ -157,7 +157,7 @@ JSON Web Tokens (JWT) são amplamente utilizados para autenticação e autoriza�
 
 **Exploração**
 
-  1. Análise Inicial do Token
+  1. **Análise Inicial do Token**
    
         - O token capturado indicava o uso do algoritmo `HS512`, que requer uma chave compartilhada para assinatura. Após decodificação, o payload confirmou que o usuário Tom não possuía privilégios administrativos.
 
@@ -167,13 +167,13 @@ JSON Web Tokens (JWT) são amplamente utilizados para autenticação e autoriza�
             ![img](img/jwt-orig.png)
 
 
-  2. Manipulação do Token
+  2. **Manipulação do Token**
 
         - O algoritmo foi alterado de `HS512` para `none`, removendo a necessidade de uma assinatura válida. O campo `admin` foi modificado para `true`, simulando privilégios administrativos.
 
             ![img](img/jwt-tpd.png)
 
-  3. Interceptação do Token Modificado
+  3. **Interceptação do Token Modificado**
 
         - O token manipulado foi enviado no cabeçalho de autorização. O sistema aceitou o token e concedeu acesso administrativo
 
@@ -191,7 +191,6 @@ JSON Web Tokens (JWT) são amplamente utilizados para autenticação e autoriza�
 
   - **Escalonamento de Privilégios:** A manipulação do token permitiu que um usuário comum escalasse privilégios para acessar recursos administrativos.
   - **Exposição de Dados Sensíveis:** Informações sensíveis foram expostas devido à falta de validação adequada.
-  - **Comprometimento do Sistema:** A falta de verificação no servidor permitiu a execução de ações críticas no sistema.
 
 
 **CWE (Common Weakness Enumeration)**
@@ -209,7 +208,7 @@ JSON Web Tokens (JWT) são amplamente utilizados para autenticação e autoriza�
 
 **Mitigação**  
 
-- **Validação de Assinaturas:** Configure o servidor para rejeitar tokens com algoritmo `none` ou assinaturas inválidas.  
+- **Validação de Assinaturas:** Configurar o servidor para rejeitar tokens com algoritmo `none` ou assinaturas inválidas.  
 - **Uso de Algoritmos Assimétricos:** Adotar algoritmos de assinatura assimétrica, como `RS256`, para evitar comprometimento da chave.
 - **Validação de Payload:** Implementar validação completa do payload no servidor, mesmo que o token seja considerado válido.  
 - **Rotação de Chaves:** Rotacionar regularmente chaves e tokens para limitar o impacto de um possível comprometimento. 
@@ -223,7 +222,7 @@ Stored Cross-Site Scripting (Stored XSS) ocorre quando a aplicação armazena de
 
 **Exploração**
 
-1. Identificação da Funcionalidade Vulnerável  
+1. **Identificação da Funcionalidade Vulnerável  **
 
     - A função `webgoat.customjs.phoneHome` interage com o backend pelo endpoint `CrossSiteScripting/phone-home-xss`. Esta funcionalidade aceita dados que podem ser manipulados para explorar a vulnerabilidade.
 
@@ -253,7 +252,7 @@ Stored Cross-Site Scripting (Stored XSS) ocorre quando a aplicação armazena de
         ![alt text](img/xss-browser.png)
 
 3. **Execução do Payload**  
-     - Saída Observada: Ao acessar novamente o comentário, o script malicioso foi executado, gerando uma requisição `POST` ao backend, que processou a entrada e retornou dados manipulados.
+     - Saída Observada: Ao acessar novamente o comentário, o script malicioso foi executado, gerando uma requisição POST ao backend, que processou a entrada e retornou dados manipulados.
 
 
         ![alt text](img/xss-script.png)
