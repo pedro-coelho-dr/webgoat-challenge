@@ -1,6 +1,3 @@
----
-title: Relatório WebGoat
----
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.3.1/mermaid.min.js"></script>
 <script>
