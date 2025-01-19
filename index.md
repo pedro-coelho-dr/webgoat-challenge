@@ -1,42 +1,72 @@
----
-title: Relatório WebGoat
----
-
 # Relatório WebGoat
 
 - [Relatório WebGoat](#relatório-webgoat)
-  - [Metodologia](#metodologia)
-  - [Ferramentas](#ferramentas)
   - [Objetivo](#objetivo)
   - [Escopo](#escopo)
-  - [Sumário Executivo](#sumário-executivo)
+  - [Sumário](#sumário)
+  - [Metodologia](#metodologia)
+  - [Ferramentas](#ferramentas)
 - [Vulnerabilidades](#vulnerabilidades)
   - [SQL Injection](#sql-injection)
   - [JWT Tokens](#jwt-tokens)
   - [Stored XSS](#stored-xss)
 
 
+
+## Objetivo
+Este relatório tem como propósito identificar, analisar e explorar vulnerabilidades presentes na aplicação `WebGoat`. O foco está em demonstrar os impactos técnicos e operacionais dessas falhas, além de apresentar recomendações práticas para mitigação, alinhadas às melhores práticas de segurança.
+
+## Escopo
+
+A análise foi conduzida utilizando o [WebGoat](https://github.com/WebGoat/WebGoat), uma aplicação educacional desenvolvida para ensinar conceitos de segurança em aplicações web, permitindo a exploração de vulnerabilidades de forma prática e controlada.
+
+Os testes foram realizados em uma instância local do WebGoat, configurada em um ambiente seguro.
+
+As vulnerabilidades exploradas incluem:
+
+- `SQL Injection`: Exploração de injeções SQL avançadas para manipulação de dados no banco de dados.
+- `JWT Tokens`: Identificação de falhas relacionadas à validação inadequada e manipulação de tokens.
+- `Stored XSS`: Análise de scripts maliciosos armazenados que podem ser executados no sistema.
+
+## Sumário
+
+
+| **Vulnerabilidade** | **Impacto Principal**                          | **CVSS 3.1 (Gravidade)** | **Categoria OWASP**       |
+|----------------------|-----------------------------------------------|--------------------------|---------------------------|
+| SQL Injection        | Exfiltração de dados e escalonamento de privilégios | 9.8 (Crítico)            | A03: Injection            |
+| JWT Tokens           | Escalonamento de privilégios                 | 9.1 (Crítico)            | A01: Broken Access Control |
+| Stored XSS           | Execução de scripts maliciosos no backend    | 8.5 (Alto)               | A03: Injection            |
+
+**Recomendações Gerais**
+
+1. **Validação e Sanitização de Entradas:** Implementar validações rigorosas para todas as entradas de usuário, evitando a execução de comandos ou scripts maliciosos.
+2. **Gerenciamento Seguro de Tokens:** Utilizar algoritmos robustos para assinatura de tokens e garantir que tokens manipulados sejam rejeitados.
+3. **Política de Segurança de Conteúdo (CSP):** Configurar uma Content Security Policy que limite a execução de scripts não confiáveis e proteja contra ataques XSS.
+4. **Monitoramento Ativo:** Estabelecer sistemas de monitoramento para detectar tentativas de exploração e comportamentos suspeitos em tempo real.
+
 ## Metodologia
 
 **1. Preparação**
 
-A fase de preparação envolveu a definição clara do objetivo e escopo do projeto, seguida pela configuração do ambiente local do WebGoat em um ambiente controlado, garantindo segurança durante os testes. Todas as ferramentas necessárias foram configuradas e verificadas para assegurar sua funcionalidade. Por fim, as lições do WebGoat foram revisadas para identificar as vulnerabilidades selecionadas para análise.
+Definir o objetivo e o escopo do projeto, configurar o ambiente local do WebGoat em um ambiente controlado e verificar a funcionalidade de todas as ferramentas necessárias. Revisar as lições do WebGoat para identificar as vulnerabilidades que serão analisadas.
 
 **2. Exploração**
 
-Os testes direcionados foram realizados utilizando uma combinação de técnicas manuais e automatizadas, validando e explorando as vulnerabilidades identificadas. A execução ocorreu exclusivamente no ambiente controlado, assegurando que os resultados refletem cenários realistas sem risco a outros sistemas. Cada etapa foi registrada com evidências visuais e técnicas para comprovar os impactos das vulnerabilidades exploradas.
+Realizar testes utilizando uma combinação de técnicas manuais e automatizadas para validar e explorar as vulnerabilidades identificadas. Restringir a execução aos limites do ambiente controlado e registrar os resultados com evidências visuais e técnicas que comprovem os impactos.
 
 **3. Documentação**
 
-Cada vulnerabilidade foi documentada de maneira detalhada, incluindo:
-  - Descrição: Explicação técnica sobre a falha e os riscos associados.
-  - Exploração: Resumo das etapas realizadas, ferramentas empregadas e resultados obtidos, com suporte visual.
-  - Impacto: Avaliação objetiva dos riscos à confidencialidade, integridade e disponibilidade do sistema.
-  - Mitigação: Recomendações práticas e específicas para corrigir ou prevenir a vulnerabilidade.
-  - Referências: Links diretos para CWE, OWASP e CVSS, permitindo acesso às fontes técnicas e ao cálculo de gravidade.
+Registrar cada vulnerabilidade seguindo o formato:
+- **Descrição**: Explicação técnica da falha e seus riscos associados.
+- **Exploração**: Etapas realizadas e ferramentas utilizadas, com suporte visual.
+- **Impacto**: Avaliação objetiva dos riscos à confidencialidade, integridade e disponibilidade.
+- **Mitigação**: Recomendações práticas para corrigir ou prevenir a vulnerabilidade.
+- **Referências**: Links para CWE, OWASP e CVSS, com cálculos de gravidade.
+
 
 
 ## Ferramentas
+- [Owasp WebGoat](https://owasp.org/www-project-webgoat/)
 - [Burp Suite](https://portswigger.net/burp)
 - [Firefox](https://www.mozilla.org/)
 - [JWT.IO](https://jwt.io/)
@@ -47,35 +77,6 @@ Cada vulnerabilidade foi documentada de maneira detalhada, incluindo:
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [CWE](https://cwe.mitre.org/)
 
-## Objetivo
-Este relatório tem como objetivo principal demonstrar a identificação, análise e exploração de vulnerabilidades encontradas na plataforma WebGoat. Além de evidenciar os impactos técnicos e operacionais dessas falhas, o relatório apresenta recomendações práticas e estruturadas para mitigação, alinhando-se às melhores práticas de segurança.
-
-## Escopo
-
-A análise foi realizada em uma instância local do WebGoat, configurada em um ambiente seguro e controlado. As vulnerabilidades exploradas incluem:
-
-- SQL Injection: Foco em injeções SQL avançadas que permitem manipular o banco de dados.
-- JWT Tokens: Análise de falhas relacionadas à manipulação e validação inadequada de tokens.
-- Stored XSS: Exploração de vulnerabilidades que permitem a execução de scripts maliciosos armazenados.
-
-## Sumário Executivo
-
-A análise realizada no WebGoat identificou vulnerabilidades críticas que apresentam riscos significativos à segurança do sistema. Cada vulnerabilidade foi explorada em um ambiente controlado, demonstrando seus impactos potenciais e fornecendo recomendações práticas de mitigação. A tabela a seguir resume as vulnerabilidades, seus impactos principais e a pontuação CVSS atribuída:
-
-| **Vulnerabilidade** | **Impacto Principal**                          | **CVSS 3.1 (Gravidade)** | **Categoria OWASP**       |
-|----------------------|-----------------------------------------------|--------------------------|---------------------------|
-| SQL Injection        | Exfiltração de dados e escalonamento de privilégios | 9.8 (Crítico)            | A03: Injection            |
-| JWT Tokens           | Escalonamento de privilégios                 | 9.1 (Crítico)            | A01: Broken Access Control |
-| Stored XSS           | Execução de scripts maliciosos no backend    | 8.5 (Alto)               | A03: Injection            |
-
-**Recomendações Gerais**
-
-Para mitigar os riscos identificados, é recomendado:
-
-1. **Validação e Sanitização de Entradas:** Implementar validações rigorosas para todas as entradas de usuário, evitando a execução de comandos ou scripts maliciosos.
-2. **Gerenciamento Seguro de Tokens:** Utilizar algoritmos robustos para assinatura de tokens e garantir que tokens manipulados sejam rejeitados.
-3. **Política de Segurança de Conteúdo (CSP):** Configurar uma Content Security Policy que limite a execução de scripts não confiáveis e proteja contra ataques XSS.
-4. **Monitoramento Ativo:** Estabelecer sistemas de monitoramento para detectar tentativas de exploração e comportamentos suspeitos em tempo real.
 
 
 # Vulnerabilidades 
@@ -92,7 +93,7 @@ SQL Injection ocorre quando a aplicação não valida adequadamente as entradas 
        ```sql
        ' OR '1'='1
        ```
-   - Saída Observada: A consulta retornou todos os registros da tabela user_data, confirmando a vulnerabilidade.
+   - Saída Observada: A consulta retornou todos os registros da tabela `user_data`, confirmando a vulnerabilidade.
 
        ![img](img/sqli-1.png)
 
@@ -119,15 +120,9 @@ SQL Injection ocorre quando a aplicação não valida adequadamente as entradas 
 
        ![img](img/sqli-3.png)
 
-**Diagrama de Fluxo**
-```mermaid
-flowchart TD
-    A[Input não validado pelo usuário] --> B{Vulnerabilidade detectada?}
-    B -->|Sim| C[Injeção de SQL executada]
-    C --> D[Exfiltração de dados sensíveis]
-    C --> E[Manipulação do banco de dados]
-    B -->|Não| F[Sem impacto]
-```
+**Diagrama de Fluxo** 
+
+![alt text](img/d1.png)
 
 
 **Impacto**
@@ -188,14 +183,7 @@ JSON Web Tokens (JWT) são amplamente utilizados para autenticação e autoriza�
 
 **Diagrama de Fluxo**
 
-```mermaid
-flowchart TD
-    A[JWT interceptado pelo atacante] --> B[Algoritmo alterado para 'none']
-    B --> C[Payload modificado]
-    C --> D{Token válido no servidor?}
-    D -->|Sim| E[Escalonamento de privilégios]
-    D -->|Não| F[Rejeição do token]
-```
+![alt text](img/d2.png)
 
 
 
@@ -274,14 +262,8 @@ Stored Cross-Site Scripting (Stored XSS) ocorre quando a aplicação armazena de
 
 **Diagrama de Fluxo**
 
-```mermaid
-flowchart TD
-    A[Usuário insere script malicioso] --> B[Script armazenado no servidor]
-    B --> C[Outro usuário acessa o conteúdo]
-    C --> D[Script malicioso executado no cliente]
-    D --> E[Interação não autorizada com o backend]
-    D --> F[Exfiltração de dados do usuário]
-```
+![alt text](img/d3.png)
+
 **Impacto**  
 - **Execução no Backend:** Scripts maliciosos foram processados diretamente pelo backend, permitindo interações não autorizadas com APIs internas.  
 - **Persistência do Ataque:** O payload armazenado foi processado a cada acesso, aumentando o risco de exploração contínua.  
